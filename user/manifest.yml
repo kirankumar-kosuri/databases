@@ -19,7 +19,7 @@ metadata:
     component: user
     tier: backend
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     # these labels are used to select pods
     matchLabels:

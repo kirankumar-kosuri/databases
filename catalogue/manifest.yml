@@ -18,7 +18,7 @@ metadata:
     component: catalogue
     tier: backend
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     # these labels are used to select pods
     matchLabels:

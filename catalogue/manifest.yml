@@ -16,7 +16,6 @@ metadata:
     project: roboshop
     component: catalogue
     tier: backend
-
   spec:
     replicas: 4
     selector:
@@ -30,7 +29,7 @@ metadata:
           project: roboshop
           component: catalogue
           tier: backend
-        spec:
+      spec:
           containers:
           - name: catalogue
             image: kirankumarkosuri/catalogue:v1

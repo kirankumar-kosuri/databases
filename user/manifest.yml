@@ -21,7 +21,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    # these labels are used to select pods
+  # these labels are used to select pods
     matchLabels:
       project: roboshop
       component: user
@@ -38,21 +38,19 @@ spec:
       - name: user
         image: kirankumarkosuri/user:v1
         imagePullPolicy: Always
-
-        resources:
-                requests:
-                  cpu: "100m"
-                  memory: "128Mi"
-
-                limits:
-                  cpu: "100m"
-                  memory: "128Mi"
         envFrom:
         - configMapRef:
             name: user
         ports:
         - name: liveness-port
           containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         readinessProbe:
           httpGet:
             path: /health
@@ -65,7 +63,6 @@ spec:
             port: liveness-port
           failureThreshold: 1
           periodSeconds: 15
-
 ---
 apiVersion: v1
 kind: Service
@@ -78,9 +75,9 @@ spec:
     component: user
     tier: backend
   ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
+    - protocol: TCP
+      port: 8080 # service port
+      targetPort: 8080 # container port
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -104,6 +101,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 5
-
-          
+        averageUtilization: 5 # 70 is the real value

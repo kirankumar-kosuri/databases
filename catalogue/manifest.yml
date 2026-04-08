@@ -38,20 +38,19 @@ spec:
         image: kirankumarkosuri/catalogue:v1
         imagePullPolicy: Always
 
-        resources:
-                requests:
-                  cpu: "100m"
-                  memory: "128Mi"
-
-                limits:
-                  cpu: "100m"
-                  memory: "128Mi"
         envFrom:
         - configMapRef:
             name: catalogue
         ports:
         - name: liveness-port
           containerPort: 8080
+          resource:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
         readinessProbe:
           httpGet:
             path: /health
@@ -104,5 +103,3 @@ spec:
       target:
         type: Utilization
         averageUtilization: 5
-
-          

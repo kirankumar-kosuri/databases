@@ -109,6 +109,14 @@ spec:
       - name: frontend
         image: kirankumarkosuri/frontend:v1
         imagePullPolicy: Always
+        volumeMounts:
+          - name: nginx-config
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: frontend
         envFrom:
         - configMapRef:
             name: frontend
@@ -135,14 +143,7 @@ spec:
           failureThreshold: 1
           periodSeconds: 15
 
-          volumeMounts:
-          - name: nginx-config
-            mountPath: /etc/nginx/nginx.conf
-            subPath: nginx.conf
-      volumes:
-      - name: nginx-config
-        configMap:
-          name: frontend
+          
 ---
 apiVersion: v1
 kind: Service

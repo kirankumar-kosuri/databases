@@ -8,6 +8,7 @@ data:
     [mysqld]
     innodb_redo_log_capacity = 2G
 ---
+# service, headless service, statefulset,pvc
 apiVersion: v1
 kind: Service
 metadata:
@@ -26,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-headless-svc
+  name: mysql-headless
   namespace: roboshop
 spec:
   clusterIP: None
@@ -50,8 +51,8 @@ spec:
       project: roboshop
       component: mysql
       tier: db
-  serviceName: "mysql-headless"
-  replicas: 1  # by default is 1
+  serviceName: "mysql-headless" # this should be head less service name
+  replicas: 2 # by default is 1
   template:
     metadata:
       labels:
@@ -68,14 +69,11 @@ spec:
         - name: mysql-config
           mountPath: /etc/mysql/conf.d/my.cnf
           subPath: my.cnf
-          volumes:
+      volumes:
         - name: mysql-config
           configMap:
             name: mysql
-      volumeMounts:
-        - name: mysql
-          mountPath: /var/lib/mysql
-          
+  # This is PVC
   volumeClaimTemplates:
   - metadata:
       name: mysql

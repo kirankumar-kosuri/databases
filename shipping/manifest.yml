@@ -56,7 +56,7 @@ spec:
             port: liveness-port
           failureThreshold: 1
           periodSeconds: 15
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
 
         livenessProbe:
           httpGet:
@@ -64,7 +64,7 @@ spec:
             port: liveness-port
           failureThreshold: 1
           periodSeconds: 15
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
 
 ---
 apiVersion: v1

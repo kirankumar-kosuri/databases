@@ -43,15 +43,13 @@ spec:
         ports:
         - name: liveness-port
           containerPort: 8080
-
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
-            limits:
-              cpu: "100m"
-              memory: "128Mi"
-        
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         readinessProbe:
           httpGet:
             path: /health
@@ -90,7 +88,6 @@ metadata:
     component: catalogue
     tier: backend
 spec:
-  # The resource to scale
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
@@ -103,5 +100,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 5 
-
+        averageUtilization: 5 # 70 is the real value
